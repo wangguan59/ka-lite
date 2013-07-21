@@ -15,6 +15,34 @@
     opacity: 0.8;
     margin-top: -2px;
 }
+
+
+#keyboard span{  
+        float: left;  
+    /*     margin: 0 5px 5px 0;   */
+        width: 55px;
+        padding-left:5px
+        height: 55px;  
+        line-height: 55px;  
+        text-align: center;  
+        background: #fff;  
+        border: 1px solid #f9f9f9;  
+        -moz-border-radius: 5px;  
+        -webkit-border-radius: 5px;  
+        }  
+
+#keyboard :hover {  
+        position: relaative;  
+        top: 1px;  
+        left: 1px;  
+        border-color: #e5e5e5;  
+        cursor: pointer;  
+        }  
+
+
+
+
+
 </style>
 
 {% endblock headcss %}
@@ -52,6 +80,33 @@
 </script>
 <script src="{% static "js/exercises.js" %}"></script>
 
+
+<script>
+//Adding input field to be tappable 
+$(function(){
+    $('input[type=text]').addClass('tap');
+});
+//enable keyboard tapping  
+$(function(){  
+    var enter = $('.tap');
+
+    $('span').click(function(){  
+        var key = $(this);  
+        character = key.html(); 
+         
+        // Delete 
+        if (key.hasClass('delete')) { 
+            var val = enter.val(); 
+            enter.val(val.substr(0, val.length - 1)); 
+        } else {
+            // Add the character  
+            enter.val(enter.val() + character);  
+        }
+    });  
+});  
+</script>
+
+
 <script>
     $(function(){
         if (Khan.scratchpad.isVisible()) {
@@ -76,6 +131,11 @@
     });
 </script>
 
+
+
+
+
+
 {% endblock headjs %}
 
 {% block content %}
@@ -98,6 +158,34 @@
                         <div id="exercise-message-container" style="display: none;">
                             <div class="exercise_message"></div>
                         </div>
+
+
+  <!--  <input type="text" class="tap" name="write"></input> -->
+    <div id="keycontainer">
+    <div id ="keyboard">
+    <span class="number">0</span>   
+    <span class="number">1</span>
+    <span class="number">2</span>
+    <span class="number">3</span>
+    <span class="number">4</span>
+    <span class="number">5</span>
+    <span class="number">6</span>
+    <span class="number">7</span>
+    <span class="number">8</span>
+    <span class="number">9</span>
+    <span class="symbol">(</span>
+    <span class="symbol">)</span>
+    <span class="symbol">.</span>
+    <span class="symbol">-</span>
+    <span class="symbol">/</span>
+    <span class="symbol">%</span>
+    <span class="delete">delete</span>  
+
+   </div>
+</div>
+
+
+
                         <div id="problem-and-answer">
                             <div id='problemarea'>
                                 <div id='scratchpad'><div></div></div>
