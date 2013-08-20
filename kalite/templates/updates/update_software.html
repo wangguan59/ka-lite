@@ -10,10 +10,12 @@
 
 {% block headcss %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui/jquery-ui.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'css/updates.css' %}" />
 {% endblock headcss %}
 
 {% block headjs %}
+<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
 <script src="{% static 'js/updates.js' %}"></script>
 <script type="text/javascript">
@@ -134,6 +136,14 @@ function download_urls_callback(data) {
 {% endblock headjs %}
 
 {% block content %}
+<!---Breadcrumb -->
+<ul class="breadcrumb">
+  <li><a href="{% url homepage %}">Home</a> <span class="divider">/</span></li>
+  <li><a href="{% url update %}">Update</a> <span class="divider">/</span></li>
+  <li class="active">System Update</li>
+</ul>
+
+
 <div>
     <select id="software_available" disabled>
     </select>
