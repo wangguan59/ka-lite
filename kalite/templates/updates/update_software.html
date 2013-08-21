@@ -12,6 +12,37 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui/jquery-ui.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'css/updates.css' %}" />
+
+<style>
+
+.vertical-shadow{
+    margin-left: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.container{
+    margin-left: 130px;
+}
+
+.btn{
+    margin-left: 40px;
+    margin-top: 130px;
+}
+
+h2{
+    font-size: 24px;
+    margin-left: 45px;
+}
+
+img{
+    margin-left: 15px;
+}
+
+
+
+
+</style>
 {% endblock headcss %}
 
 {% block headjs %}
@@ -144,8 +175,80 @@ function download_urls_callback(data) {
 </ul>
 
 
+
+
+<!---Current System status -->
 <div>
-    <select id="software_available" disabled>
+    <div class="vertical-shadow">
+        <div class= "row">
+                <h2>{% trans "Current KA Lite" %}</h2>
+        </div>
+
+        <div class= "row">
+            <div class="span3">
+                <img src="http://placehold.it/200x150">
+            </div>
+
+            <div class="span6">
+                <dl class="dl-horizontal">
+                    <dt>Current Version:</dt>
+                    <dd>0.092</dd>
+                    <dt>Release Date:</dt>
+                    <dd>Sep 3, 2013</dd>
+                    <dt>Size:</dt>
+                    <dd>19.03 MB</dd>
+                    <dt>Device ID:</dt>
+                    <dd>1eqrvaqewrm2848vadsfk</dd>
+                    <dt>Last changed at:</dt>
+                    <dd>{{ database_last_updated }}</dd>
+                    <dt>File Directory:</dt>
+                    <dd>{{ install_dir }}</dd>
+                    </dl>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="vertical-shadow">
+        <div class= "row">
+                <h2>{% trans "New Updates" %}</h2>
+        </div>
+
+        <div class= "row">
+
+            <div class="span6">
+                <dl class="dl-horizontal">
+                    <dt>Latest Version:</dt>
+                    <dd>0.10 <span class="label label-info">New</span> </dd>
+                    <dt>Release Date:</dt>
+                    <dd>Sep 3, 2013</dd>
+                    <dt>Description:</dt>
+                    <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus nunc et est rutrum feugiat. Cras fermentum odio ac ante placerat, ut pharetra mi dignissim. Fusce sed urna aliquam, placerat ipsum at, pretiumtortor ac, bibendum turpis.</dd>
+                    </dl>
+            </div>
+
+            <div class="span3">
+                <button class="btn btn-large btn-primary" type="button">Download and update</button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div>
+    <select id="software_available" >
     </select>
 
     <button id="download-update-kalite" type="button" disabled>{% trans "Update KA Lite from remote download" %}</button>
