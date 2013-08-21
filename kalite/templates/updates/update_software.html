@@ -46,7 +46,7 @@ img{
 {% endblock headcss %}
 
 {% block headjs %}
-<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
 <script src="{% static 'js/updates.js' %}"></script>
 <script type="text/javascript">
@@ -193,7 +193,7 @@ function download_urls_callback(data) {
                 <dl class="dl-horizontal">
                     <dt>Current Version:</dt>
                     <dd>0.092</dd>
-                    <dt>Release Date:</dt>
+                    <dt>Released Date:</dt>
                     <dd>Sep 3, 2013</dd>
                     <dt>Size:</dt>
                     <dd>19.03 MB</dd>
@@ -221,7 +221,7 @@ function download_urls_callback(data) {
                 <dl class="dl-horizontal">
                     <dt>Latest Version:</dt>
                     <dd>0.10 <span class="label label-info">New</span> </dd>
-                    <dt>Release Date:</dt>
+                    <dt>Released Date:</dt>
                     <dd>Sep 3, 2013</dd>
                     <dt>Description:</dt>
                     <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus nunc et est rutrum feugiat. Cras fermentum odio ac ante placerat, ut pharetra mi dignissim. Fusce sed urna aliquam, placerat ipsum at, pretiumtortor ac, bibendum turpis.</dd>
@@ -229,7 +229,7 @@ function download_urls_callback(data) {
             </div>
 
             <div class="span3">
-                <button class="btn btn-large btn-primary" type="button">Download and update</button>
+                <button type="button" class="btn btn-large btn-primary" data-loading-text="Loading..." >Download and update</button>
             </div>
 
         </div>
