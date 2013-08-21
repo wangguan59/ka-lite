@@ -11,6 +11,7 @@
 {% block headcss %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui/jquery-ui.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-fileupload.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'css/updates.css' %}" />
 
 <style>
@@ -25,9 +26,15 @@
     margin-left: 130px;
 }
 
-.btn{
-    margin-left: 40px;
-    margin-top: 130px;
+#software_available{
+    margin-left: -4px;
+    margin-top: 6px;
+}
+
+#cancel-update-kalite{
+    margin-top: 10px;
+    margin-bottom: 15px;
+
 }
 
 h2{
@@ -48,6 +55,7 @@ img{
 {% block headjs %}
 <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-ui/bootstrap-fileupload.min.js' %}"></script>
 <script src="{% static 'js/updates.js' %}"></script>
 <script type="text/javascript">
 // Callback functions 
@@ -174,6 +182,12 @@ function download_urls_callback(data) {
   <li class="active">System Update</li>
 </ul>
 
+<!-- Progress Bar, note: id must match the "updates" app process name -->
+<div id="update-progressbar">
+    {% include "updates/progress-bar.html" %}
+</div>
+<div class="text-right"><button type="button" class="btn btn-danger" id="cancel-update-kalite">Cancel</button></div>
+<div style="clear: both;"></div>
 
 
 
@@ -185,16 +199,12 @@ function download_urls_callback(data) {
         </div>
 
         <div class= "row">
-            <div class="span3">
-                <img src="http://placehold.it/200x150">
-            </div>
-
             <div class="span6">
                 <dl class="dl-horizontal">
                     <dt>Current Version:</dt>
-                    <dd>0.092</dd>
+                    <dd>{{ software_version }}</dd>
                     <dt>Released Date:</dt>
-                    <dd>Sep 3, 2013</dd>
+                    <dd>{{ software_release_date }}</dd>
                     <dt>Size:</dt>
                     <dd>19.03 MB</dd>
                     <dt>Device ID:</dt>
@@ -216,11 +226,10 @@ function download_urls_callback(data) {
         </div>
 
         <div class= "row">
-
             <div class="span6">
                 <dl class="dl-horizontal">
                     <dt>Latest Version:</dt>
-                    <dd>0.10 <span class="label label-info">New</span> </dd>
+                    <dd>0.10</dd>
                     <dt>Released Date:</dt>
                     <dd>Sep 3, 2013</dd>
                     <dt>Description:</dt>
@@ -228,8 +237,17 @@ function download_urls_callback(data) {
                     </dl>
             </div>
 
-            <div class="span3">
-                <button type="button" class="btn btn-large btn-primary" data-loading-text="Loading..." >Download and update</button>
+            <div class="span4 offset2">
+                <h4>From the Internet:</h4>
+                <button type="button" class="btn" id="download-update-kalite" disabled>Download and update</button>
+                <select class="span1" id="software_available"></select>
+                <!---File Upload Button -->
+                <h4>Use local file:</h4>
+                <div class="fileupload fileupload-new" data-provides="fileupload" id="upload-update-kalite">
+                    <span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" /></span>
+                    <span class="fileupload-preview"></span>
+                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+                </div>
             </div>
 
         </div>
@@ -238,38 +256,8 @@ function download_urls_callback(data) {
 </div>
 
 
-
-
-
-
-
-
-
-
-
-<div>
-    <select id="software_available" >
-    </select>
-
-    <button id="download-update-kalite" type="button" disabled>{% trans "Update KA Lite from remote download" %}</button>
-    <button id="upload-update-kalite" type="button" disabled>{% trans "Update KA Lite from file" %}</button>
-    <button id="cancel-update-kalite" type="button" disabled>{% trans "Cancel update" %}</button>
-</div>
-
 <div style="clear: both;"></div>
 
-<!-- note: id must match the "updates" app process name -->
-<div id="update-progressbar">
-    {% include "updates/progress-bar.html" %}
-</div>
-<div style="clear: both;"></div>
-
-<div>
-<span>Current version: {{ software_version }}</span><br />
-<span>Current install directory: {{ install_dir }}</span><br />
-<span>Current database last-updated: {{ database_last_updated }}</span><br />
-</div>
-<div style="clear: both;"></div>
 <!-- fake way to do JSONP -->
 <script type="text/javascript" src="{% central_server_api path='/api/version' %}?callback=version_callback"></script>
 <script type="text/javascript" src="{% central_server_api path='/api/download/kalite/' %}?callback=download_urls_callback"></script>
