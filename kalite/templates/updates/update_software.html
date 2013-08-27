@@ -16,17 +16,11 @@
 
 <style>
 
-.vertical-shadow{
-    margin-left: 5px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+.current_info{
+    margin-left: 4px;
 }
 
-.container{
-    margin-left: 130px;
-}
-
-#cancel-update-kalite{
+#cancel-download{
     margin-top: 10px;
     margin-bottom: 15px;
 
@@ -34,11 +28,6 @@
 
 h2{
     font-size: 24px;
-    margin-left: 45px;
-}
-
-img{
-    margin-left: 15px;
 }
 
 
@@ -188,7 +177,7 @@ function download_urls_callback(data) {
                 });
 
             // Update the UI to reflect that we're waiting to start
-            $("#cancel-update").show();
+            $("#cancel-download").show();
         });
         // onload    
     });
@@ -206,13 +195,97 @@ function download_urls_callback(data) {
 <!-- Progress Bar, note: id must match the "updates" app process name -->
 <div id="update-progressbar">
     {% include "updates/progress-bar.html" %}
-    <div class="text-right"><button type="button" class="btn btn-danger" id="cancel-update-kalite">Cancel</button></div>
+    <div class="right">
+        <button type="button" class="btn btn-danger" id="cancel-download">Cancel</button>
+    </div>
 </div>
 <div style="clear: both;"></div>
 
 
 
-<!---Current System status -->
+<!-- <div class="container-fluid"> -->
+  <div class="row-fluid">
+    <div class="span3 well">
+        <div class= "row">
+            <h2 class="text-center">{% trans "Current KA Lite" %}</h2>
+        </div>
+            <dl class="current_info">
+                <dt>Installed Version:</dt>
+                <dd>{{ software_version }}</dd>
+                <dt>Released Date:</dt>
+                <dd>{{ software_release_date }}</dd>
+                <dt>Device ID:</dt>
+                <dd>{{ device_id|slice:":10"}}</dd>
+                <dt>Last Changed Time:</dt>
+                <dd>{{ database_last_updated }}</dd>
+                <dt>File Directory:</dt>
+                <dd>{{ install_dir }}</dd>
+            </dl>
+    </div>
+
+
+    <div class="span9 well">
+        <div class= "row">
+            <h2 class="text-center">{% trans "New Updates" %}</h2>
+        </div>        
+           <dl class="dl-horizontal new-content" >
+                <dt>Latest Version:</dt>
+                <dd><span id="remote_version"></span></dd>
+                <dt>Released Date:</dt>
+                <dd><span id="remote_release_date"></span></dd>
+                <dt>Description:</dt>
+                <dd>New Features:
+                    <ul id="new_features"></ul>
+                    Bugs fixed:
+                    <ul id="bugs_fixed"></ul>
+                </dd>
+            </dl>
+        <!---File Upload Button -->
+            <h5>Use local zip file to update:</h5>
+            <div class="fileupload fileupload-new" data-provides="fileupload" id="upload-update-kalite">
+                <span class="btn btn-primary btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" /></span>
+                <span class="fileupload-preview"></span>
+                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+            </div>
+
+
+            <div class="text-center">
+            <button type="button" class="btn btn-primary " id="download-update-kalite">Download and update</button>
+            <span class="fileupload fileupload-new" data-provides="fileupload" id="upload-update-kalite">
+                <span class="btn btn-link btn-file"><span class="fileupload-new">or use local zip update file</span><span class="fileupload-exists">Change</span><input type="file" /></span>
+                <span class="fileupload-preview"></span>
+                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+            </span>
+            </div>
+    </div>
+  </div>
+<!-- </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <div>
     <div class="vertical-shadow">
         <div class= "row">
@@ -237,7 +310,6 @@ function download_urls_callback(data) {
                 </dl>
             </div>
             <div class="span5 offset2">
-                <!---File Upload Button -->
                 <h4>Use local zip file package to update:</h4>
                 <div class="fileupload fileupload-new" data-provides="fileupload" id="upload-update-kalite">
                     <span class="btn btn-primary btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" /></span>
@@ -278,7 +350,7 @@ function download_urls_callback(data) {
         </div>
     </div>
 
-</div>
+</div> -->
 
 
 <div style="clear: both;"></div>
