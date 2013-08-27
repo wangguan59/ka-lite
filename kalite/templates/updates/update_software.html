@@ -114,22 +114,48 @@ function version_callback(data) {
     //   If not, alert the user!
     var current_version = "{{ software_version }}";
     var remote_version = data.version;
-    if (current_version != remote_version) {
-        alert("update available!" + current_version + remote_version);
+    if (! remote_version ) {
+        show_message("error", "Remote version information unavailable.", "id_message_update");
+    } else if (current_version != remote_version) {
+        $("#update_info").show();  // show the related div
+        $("#internet_update").show();
+
+        version_info = data["version_info"];
+
+        //alert("update available! " + current_version + " < " + remote_version);
+        $("#remote_version").text(remote_version);
+        $("#remote_release_date").text(version_info[remote_version].release_date);
+
+        // Update feature list
+        //$("#new_features").text("");
+        for (version in version_info) {  // loop through all features of all uninstalled versions
+            if (! version_info[version]["new_features"]) {
+                $("#new_features").append("<li>(None)</li>");
+            } else {
+                for (fi in version_info[version]["new_features"]) {
+                    $("#new_features").append("<li>" + version_info[version]["new_features"][fi] + "</li>");
+                }
+            }
+            if (! version_info[version]["bugs_fixed"]) {
+                $("#bugs_fixed").append("<li>(None)</li>");
+            } else {
+                for (fi in version_info[version]["bugs_fixed"]) {
+                    $("#bugs_fixed").append("<li>" + version_info[version]["bugs_fixed"][fi] + "</li>");
+                }
+            }
+        }
     }
 }
 
 function download_urls_callback(data) {
-    window.data = data;
-    for (key in data) {
-         $("#software_available").append("<option value='" + data[key].url + "'>" + key + " (" + data[key].size + "MB)</option>");
-    }
+    locale = "en";//{{ current_locale }}"
+   $("#software_available").append("<option value='" + data[locale].url + "'>" + locale + " (" + data[locale].size + "MB)</option>");
 }
 </script>
 
 <script type="text/javascript">
     $(function() {
-        updatesStart("update", 5000, software_callbacks)
+        updatesStart("update", 1000, software_callbacks)
 
         setTimeout(function() {
             get_server_status({path: "{% url get_server_info %}"}, ["online"], function(status){
@@ -210,8 +236,17 @@ function download_urls_callback(data) {
                     <dd>{{ install_dir }}</dd>
                 </dl>
             </div>
-
+            <div class="span5 offset2">
+                <!---File Upload Button -->
+                <h4>Use local zip file package to update:</h4>
+                <div class="fileupload fileupload-new" data-provides="fileupload" id="upload-update-kalite">
+                    <span class="btn btn-primary btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" /></span>
+                    <span class="fileupload-preview"></span>
+                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+                </div>
+            </div>
         </div>
+
     </div>
 
 
@@ -237,15 +272,7 @@ function download_urls_callback(data) {
             </div>
 
             <div class="span4 offset2">
-                <h4>From the Internet:</h4>
-                <button type="button" class="btn" id="download-update-kalite" disabled>Download and update</button>
-                <!---File Upload Button -->
-                <h4>Use local file:</h4>
-                <div class="fileupload fileupload-new" data-provides="fileupload" id="upload-update-kalite">
-                    <span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" /></span>
-                    <span class="fileupload-preview"></span>
-                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
-                </div>
+                <button type="button" class="btn btn-primary" idf="download-update-kalite" disabled>Download and update</button>
             </div>
 
         </div>
