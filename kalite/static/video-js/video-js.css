@@ -137,7 +137,7 @@ so you can upgrade to newer versions easier. You can remove all these styles by 
 
 /* Play/Pause
 -------------------------------------------------------------------------------- */
-.vjs-default-skin .vjs-play-control { width: 5em; cursor: pointer !important; }
+.vjs-default-skin .vjs-play-control { width: 5em; cursor: pointer !important; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(76,76,76,1)), color-stop(53%,rgba(89,89,89,1)), color-stop(100%,rgba(0,0,0,1)), color-stop(100%,rgba(43,43,43,1)), color-stop(100%,rgba(71,71,71,1)), color-stop(100%,rgba(44,44,44,1)), color-stop(100%,rgba(17,17,17,1)), color-stop(100%,rgba(28,28,28,1)), color-stop(100%,rgba(19,19,19,1)));}
 /* Play Icon */
 .vjs-default-skin.vjs-paused .vjs-play-control div { width: 15px; height: 17px; background: url('video-js.png'); margin: 0.9em auto 0; }
 .vjs-default-skin.vjs-playing .vjs-play-control div { width: 15px; height: 17px; background: url('video-js.png') -25px 0; margin: 0.9em auto 0; }
