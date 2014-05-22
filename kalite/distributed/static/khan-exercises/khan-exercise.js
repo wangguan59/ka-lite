@@ -1429,6 +1429,9 @@ var Khan = (function() {
             choices.remove();
         }
 
+        //KA-LITE-MOD: To trigger plugin for software keyboard
+        problem.runModules(problem, "Post");
+
         // Add the problem into the page
         Khan.scratchpad.resize();
 
